@@ -6,9 +6,6 @@ import javax.persistence.Id
 
 @Entity
 data class Driver(
-
         @Id
-        var id: Long? = null,
-        val name: String,
-        val birthDate: LocalDate
+        var id: Long? = null, val name: String, val birthDate: LocalDate
 )
