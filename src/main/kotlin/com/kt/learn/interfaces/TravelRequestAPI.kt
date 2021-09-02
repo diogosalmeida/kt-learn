@@ -1,7 +1,8 @@
 package com.kt.learn.interfaces
 
-import com.kt.learn.services.TravelRequestMapper
-import com.kt.learn.services.TravelRequestStatus
+import com.kt.learn.domain.TravelRequestStatus
+import com.kt.learn.interfaces.incoming.mapper.TravelRequestMapper
+
 import com.kt.learn.services.TravelService
 import org.springframework.hateoas.EntityModel
 import org.springframework.http.MediaType
@@ -15,16 +16,21 @@ import java.time.LocalDateTime
 @Service
 @RestController
 @RequestMapping(path = ["/travelRequests"], produces = [MediaType.APPLICATION_JSON_VALUE])
-class TravelAPI(val travelService: TravelService,
-                val mapper: TravelRequestMapper) {
+class TravelRequestAPI(
+    val travelService: TravelService,
+    val mapper: TravelRequestMapper
+) {
 
     @PostMapping
-    fun makeTravelRequest(@RequestBody travelRequestInput: TravelRequestInput) : EntityModel<TravelRequestOutput> {
+    fun makeTravelRequest(@RequestBody travelRequestInput: TravelRequestInput)
+            : EntityModel<TravelRequestOutput> {
         val travelRequest = travelService.saveTravelRequest(mapper.map(travelRequestInput))
         val output = mapper.map(travelRequest)
         return mapper.buildOutputModel(travelRequest, output)
     }
 }
+
+
 data class TravelRequestInput(
     val passengerId: Long,
     val origin: String,

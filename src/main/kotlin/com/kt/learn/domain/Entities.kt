@@ -1,6 +1,5 @@
 package com.kt.learn.domain
 
-import com.kt.learn.services.TravelRequestStatus
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.Entity
@@ -36,3 +35,7 @@ data class TravelRequest (
         val status: TravelRequestStatus = TravelRequestStatus.CREATED,
         val creationDate: LocalDateTime = LocalDateTime.now()
 )
+
+enum class TravelRequestStatus {
+        CREATED, ACCEPTED, REFUSED
+}
